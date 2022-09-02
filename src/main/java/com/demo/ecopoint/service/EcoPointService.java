@@ -1,0 +1,97 @@
+package com.demo.ecopoint.service;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import com.demo.ecopoint.domain.DisposalCompleted;
+import com.demo.ecopoint.domain.EcoPoint;
+import com.demo.ecopoint.domain.PaymentCanceled;
+import com.demo.ecopoint.domain.PaymentCompleted;
+import com.demo.ecopoint.repo.EcoPointRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class EcoPointService{
+
+    private final EcoPointRepository ecoPointRepository;
+
+    public String addEcoPoint(DisposalCompleted request){
+
+      EcoPoint ecoPoint = ecoPointRepository.findByMemberId(request.getMemberId());
+      if(ecoPoint != null){ //포인트가 기존에 있는 회원
+        ecoPoint.setEcoPoint(request.getEcoPoint() +  ecoPoint.getEcoPoint());
+        ecoPointRepository.save(ecoPoint);
+      }
+      else{   //포인트 처음 적립되는 회원
+        ecoPointRepository.save(EcoPoint.builder()
+                .pointId(ecoPoint.getPointId())
+                .ecoPoint(request.getEcoPoint())
+                .memberId(ecoPoint.getMemberId())
+                .build());
+      }
+
+        return "Success";
+    }
+
+
+    public EcoPoint getEcoPointById(Long memberId) {
+      EcoPoint ecoPoint = ecoPointRepository.findByMemberId(memberId);
+
+      return ecoPoint;
+  }
+
+  // public EcoPointStandard getEcoPointStandarByClassification(String classification) {
+  //   EcoPointStandard pointStandard = pointStandardRepository.findByClassification(classification);
+  //   System.out.println(pointStandard.getClassification() + "  : getEcoPointStandarByProduct");
+  //   return pointStandard;
+  // }
+
+  // public EcoPointStandard getEcoPointStandarById(long id) {
+  //   EcoPointStandard pointStandard = pointStandardRepository.findById(id);
+  //   System.out.println(pointStandard.getClassification() + "  : getEcoPointStandarById");
+  //   return pointStandard;
+  // }
+
+  public String useEcoPoint(PaymentCompleted request) {
+      EcoPoint ecoPoint = ecoPointRepository.findByMemberId(request.getMemberId());
+      long point = ecoPoint.getEcoPoint();
+      ecoPoint.setEcoPoint(point - request.getPrice());
+      ecoPoint.setMemberId(request.getMemberId());
+
+      ecoPointRepository.save(ecoPoint);
+      return "Success";
+  }
+
+  public String refoundPoint(PaymentCanceled request) {
+    EcoPoint ecoPoint = ecoPointRepository.findByMemberId(request.getMemberId());
+    long point = ecoPoint.getEcoPoint();
+    ecoPoint.setEcoPoint(point + request.getPrice());
+    ecoPoint.setMemberId(request.getMemberId());
+
+    ecoPointRepository.save(ecoPoint);
+    return "Success";
+}
+
+  //  public String deleteEcoPointStandard(Long standardId) {
+  //     Optional<EcoPointStandard> standard = pointStandardRepository.findById(standardId);
+  //     pointStandardRepository.delete(standard.get());
+  //     return "Success";
+  // }
+
+    // public String login(String userId, String password) {
+    //   Optional<User> user = pointStandardRepository.findByUserId(userId);
+    //   log.info("db password = {}, input password = {}", user.get().getPassword(), password);
+    //   if(user.get().getPassword().equals(password)) {
+    //     return "Success";
+    //   }
+    //   return "Failed";
+    // }
+
+
+    
+}

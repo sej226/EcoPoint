@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecopoint
+  namespace: ecomarket
+  labels:
+    app: ecopoint
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecopoint
+  template:
+    metadata:
+      labels:
+        app: ecopoint
+    spec:
+      containers:
+        - name: ecopoint
+          image: AWS_ECR_URI
+          # 104844728320.dkr.ecr.ap-northeast-2.amazonaws.com/delivery:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8081
