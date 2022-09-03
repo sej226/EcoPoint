@@ -1,10 +1,10 @@
-package com.ecopointstandard.demo;
+package com.demo.ecopoint;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class EcoPointApplicationTests {
 
 	@Test
 	void contextLoads() {
