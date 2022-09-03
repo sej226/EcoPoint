@@ -52,6 +52,8 @@ public class DisposalController {
             long point = ecoPointStandard.getEcoPoint() * disposalCompleted.getQuantity();
             System.out.println(point + " ###################################################");
             disposalCompleted.setEcoPoint(point);
+            disposalCompleted.setRecycleItemId(ecoPointStandard.getStandardId());
+            // disposalCompleted.setRecycleItemName);
             disposalCompleted.publishAfterCommit();
             
             disposalService.editDisposal(disposalCompleted.getDisposalId(), point);
