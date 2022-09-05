@@ -33,7 +33,7 @@ public class EcoPointController {
     //포인트 부여
     @PostMapping("/reward")
     public ResponseEntity addEcoPoint(@RequestBody DisposalCompleted request) {
-      //
+      
         log.info("ecoPoint = {}, memberId = {}, Id = {} "
                  , request.getEcoPoint(), request.getMemberId(), request.getDisposalId());
 

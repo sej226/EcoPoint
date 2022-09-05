@@ -29,7 +29,7 @@ public class EcoPointStandardController {
     
     @PostMapping("/addStandard")
     public ResponseEntity addPointStandard(@RequestBody EcoPointStandard request) {
-      //
+      
         log.info("classification = {}, countweightstandard = {}, standardDesc = {}, ecoPoint = {}"
         , request.getClassification(), request.getCountweightstandard(), request.getStandardDesc(), request.getEcoPoint());
 
@@ -47,8 +47,7 @@ public class EcoPointStandardController {
 
     //@RequestParam("classification")
     @GetMapping("/RequestParam")
-    public ResponseEntity getEcoPointStandarByClassification(
-        @RequestParam(required = false, value = "classification") String classification)   {
+    public ResponseEntity getEcoPointStandarByClassification( @RequestParam(required = false, value = "classification") String classification) {
     // @PathVariable String classification) {
 
         System.out.println( "getEcoPointStandarByClassification input: " + classification + "/" );

@@ -45,18 +45,6 @@ public class EcoPointService{
       return ecoPoint;
   }
 
-  // public EcoPointStandard getEcoPointStandarByClassification(String classification) {
-  //   EcoPointStandard pointStandard = pointStandardRepository.findByClassification(classification);
-  //   System.out.println(pointStandard.getClassification() + "  : getEcoPointStandarByProduct");
-  //   return pointStandard;
-  // }
-
-  // public EcoPointStandard getEcoPointStandarById(long id) {
-  //   EcoPointStandard pointStandard = pointStandardRepository.findById(id);
-  //   System.out.println(pointStandard.getClassification() + "  : getEcoPointStandarById");
-  //   return pointStandard;
-  // }
-
   public String useEcoPoint(PaymentCompleted request) {
       EcoPoint ecoPoint = ecoPointRepository.findByMemberId(request.getMemberId());
       long point = ecoPoint.getEcoPoint();
@@ -76,22 +64,6 @@ public class EcoPointService{
     ecoPointRepository.save(ecoPoint);
     return "Success";
 }
-
-  //  public String deleteEcoPointStandard(Long standardId) {
-  //     Optional<EcoPointStandard> standard = pointStandardRepository.findById(standardId);
-  //     pointStandardRepository.delete(standard.get());
-  //     return "Success";
-  // }
-
-    // public String login(String userId, String password) {
-    //   Optional<User> user = pointStandardRepository.findByUserId(userId);
-    //   log.info("db password = {}, input password = {}", user.get().getPassword(), password);
-    //   if(user.get().getPassword().equals(password)) {
-    //     return "Success";
-    //   }
-    //   return "Failed";
-    // }
-
 
     
 }

@@ -59,7 +59,6 @@ public class DisposalController {
             disposalService.editDisposal(disposalCompleted.getDisposalId(), point);
            
             if(ecoPointService.addEcoPoint(disposalCompleted).equals("Success")) {
-                
                 System.out.println("addEcoPoint Success!");
                 return new ResponseEntity(HttpStatus.CREATED);
             }

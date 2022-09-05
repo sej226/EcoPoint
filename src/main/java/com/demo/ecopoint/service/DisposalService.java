@@ -65,15 +65,6 @@ public class DisposalService{
 
       return "Success";
     }
-     
-
-   
-    // standard.get().setClassification(request.getClassification());
-    // standard.get().setCountweightstandard(request.getCountweightstandard());
-    // standard.get().setEcoPoint(request.getEcoPoint());
-    // standard.get().setStandardDesc(request.getStandardDesc());
-    // System.out.println(request.getEcoPoint() + " !!!!!!!!!!!!!!!!!!!!!!");
-    // request.updateEntity(post.get());
    
     return "Fail";
 }

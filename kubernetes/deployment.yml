@@ -17,8 +17,7 @@ spec:
     spec:
       containers:
         - name: ecopoint
-          image: AWS_ECR_URI
-          # 104844728320.dkr.ecr.ap-northeast-2.amazonaws.com/delivery:latest
+          image: 104844728320.dkr.ecr.ap-northeast-2.amazonaws.com/ecopoint:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8081
