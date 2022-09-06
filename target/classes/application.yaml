@@ -1,3 +1,4 @@
+
 spring:
   jpa:
     hibernate:
@@ -10,13 +11,15 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   datasource:
-    url: jdbc:mysql://localhost:3306/scott?characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true
-    username: root
-    password: 1234
-    driverClassName: com.mysql.cj.jdbc.Driver
-
-# server:
-#   port: 8080
+    url: jdbc:mysql://ecomarket-ecopoint-db.cgcyiu667p2z.ap-northeast-2.rds.amazonaws.com:3306/ecopoint_db?characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true
+    username: admin
+    password: admin123
+    driverClassName: com.mysql.cj.jdbc.Driver    
+  # datasource:
+  #   url: jdbc:mysql://localhost:3306/scott?characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true
+  #   username: root
+  #   password: 1234
+  #   driverClassName: com.mysql.cj.jdbc.Driver
 
 ---
 
