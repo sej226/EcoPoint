@@ -5,16 +5,14 @@ phases:
       # docker: 20
       java: corretto11
     commands:
-      - COMMIT_HASH=$(echo $CODEBUILD_BUILD_NUMBER)
-      - IMA_TAG=${COMMIT_HASH:=latest}
-      - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
       - curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/kubectl
       - chmod +x ./kubectl
       - mv ./kubectl /usr/local/bin/kubectl
       - mkdir ~/.kube
+      #- aws eks --region ap-northeast-2 update-kubeconfig --name eks
       - aws eks --region ap-northeast-2 update-kubeconfig --name ecomarket-eks-cluster
       - aws eks update-kubeconfig --name ecomarket-eks-cluster
-      # - kubectl get po -n kube-system
+      #- kubectl get po -n ecomarket-eks-cluster
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
