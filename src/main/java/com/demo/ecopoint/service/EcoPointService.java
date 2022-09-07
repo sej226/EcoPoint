@@ -29,9 +29,9 @@ public class EcoPointService{
       }
       else{   //포인트 처음 적립되는 회원
         ecoPointRepository.save(EcoPoint.builder()
-                .pointId(ecoPoint.getPointId())
+                // .pointId(ecoPoint.getPointId())
                 .ecoPoint(request.getEcoPoint())
-                .memberId(ecoPoint.getMemberId())
+                .memberId(request.getMemberId())
                 .build());
       }
 
