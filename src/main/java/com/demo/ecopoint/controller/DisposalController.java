@@ -41,32 +41,41 @@ public class DisposalController {
         log.info("DisposalId = {}, DisposaProduct = {}, DisposalPlace = {}, ecoPoint = {}"
         , request.getDisposalId(), request.getDisposalProduct(), request.getBranchName(), request.getEcoPoint());
         
-        // System.out.println("?? " + BranchName.values()[new Random().nextInt(BranchName.values().length)] + " ?????");
+        //지점명 랜덤으로 지정
         request.setBranchName(BranchName.values()[new Random().nextInt(BranchName.values().length)].toString());
+        
+        //배출 내역 저장
         Disposal disposal = disposalService.disposalItem(request);
         if(disposal != null) {
+            //배출 완료
             DisposalCompleted  disposalCompleted  = new DisposalCompleted();
-            disposalCompleted.setDisposalId(disposal.getDisposalId());
-            disposalCompleted.setDisposalProduct(request.getDisposalProduct());
-            disposalCompleted.setQuantity(request.getQuantity());
-            disposalCompleted.setMemberId(request.getUserId());
-            disposalCompleted.setDisposalDate(request.getDisposalDate());
-            disposalCompleted.setBranchName(request.getBranchName());
+            disposalCompleted.setDisposalId(disposal.getDisposalId());          //배출 ID
+            disposalCompleted.setDisposalProduct(request.getDisposalProduct()); //배출 제품
+            disposalCompleted.setQuantity(request.getQuantity());           //배출 수량
+            disposalCompleted.setMemberId(request.getUserId());             //배출자 ID
+            disposalCompleted.setDisposalDate(request.getDisposalDate());   //배출 일자
+            disposalCompleted.setBranchName(request.getBranchName());       //배출 지점
 
-            EcoPointStandard ecoPointStandard = ecoPointStandardService.getEcoPointStandarByClassification(disposalCompleted.getDisposalProduct());
-            System.out.println("getEcoPointStandarByClassification  " + ecoPointStandard.getClassification());
-            long point = ecoPointStandard.getEcoPoint() * disposalCompleted.getQuantity();
-            System.out.println(point + " ###################################################");
-            disposalCompleted.setEcoPoint(point);
-            disposalCompleted.setRecycleItemId(ecoPointStandard.getStandardId());
-            disposalService.editDisposal(disposalCompleted.getDisposalId(), point);
-            List<Disposal> disposalItems = getDisposalListByUserId(request.getUserId());
-            System.out.println(disposalItems.size() + "@@@@@@@@@@@@@size");
-            // disposalCompleted.publishAfterCommit();
+            //배출 제품의 포인트 기준 정보 조회
+            EcoPointStandard ecoPointStandard = ecoPointStandardService.getEcoPointStandarByClassification(request.getDisposalProduct());
+            // System.out.println("getEcoPointStandarByClassification  " + ecoPointStandard.getClassification());
+            long point = ecoPointStandard.getEcoPoint() * disposalCompleted.getQuantity(); //수량만큼 포인트 계산
+            System.out.println("############## Point : " + point + " #####################################");
+            disposalCompleted.setEcoPoint(point);   //배출 포인트
+
+            disposalCompleted.setRecycleItemId(ecoPointStandard.getStandardId()); //재활용품목  ID
+
+            disposalService.editDisposal(disposalCompleted.getDisposalId(), point); //배출 내역에 포인트 저장
+
+            List<Disposal> disposalItems = getDisposalListByUserId(request.getUserId()); //배출자의 배출 내역 조회
             
+            // System.out.println(disposalItems.size() + "@@@@@@@@@@@@@size");
             
-           
+            disposalCompleted.publishAfterCommit();
+            
+            //포인트 적립
             if(ecoPointService.addEcoPoint(disposalCompleted).equals("Success")) {
+                log.info("############## " + point + "  포인트 적립 Success ############## ");
                 return new ResponseEntity(HttpStatus.CREATED);
             }
 

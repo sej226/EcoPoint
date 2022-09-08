@@ -15,7 +15,6 @@ com\demo\ecopoint\domain\EcoPoint.class
 com\demo\ecopoint\config\WebConfig.class
 com\demo\ecopoint\service\EcoPointService.class
 com\demo\ecopoint\domain\EcoPointStandard.class
-com\demo\ecopoint\domain\ProductChanged.class
 com\demo\ecopoint\domain\Disposal$DisposalBuilder.class
 com\demo\ecopoint\controller\EcoPointStandardController.class
 com\demo\ecopoint\PolicyHandler.class

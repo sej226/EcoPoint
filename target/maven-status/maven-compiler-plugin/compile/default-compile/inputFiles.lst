@@ -10,7 +10,6 @@ C:\Dev\ecoPoint\src\main\java\com\demo\ecopoint\domain\PaymentCanceled.java
 C:\Dev\ecoPoint\src\main\java\com\demo\ecopoint\domain\EcoPointStandard.java
 C:\Dev\ecoPoint\src\main\java\com\demo\ecopoint\repo\DisposalRepository.java
 C:\Dev\ecoPoint\src\main\java\com\demo\ecopoint\domain\PaymentCompleted.java
-C:\Dev\ecoPoint\src\main\java\com\demo\ecopoint\domain\ProductChanged.java
 C:\Dev\ecoPoint\src\main\java\com\demo\ecopoint\domain\Disposal.java
 C:\Dev\ecoPoint\src\main\java\com\demo\ecopoint\service\DisposalService.java
 C:\Dev\ecoPoint\src\main\java\com\demo\ecopoint\AbstractEvent.java

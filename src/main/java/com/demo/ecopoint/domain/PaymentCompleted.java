@@ -11,8 +11,7 @@ import lombok.Setter;
 public class PaymentCompleted extends AbstractEvent {
   //결제 완료 시, ecopoint 사용한 경우 차감
   private Long memberId;
-  private Long price;
+  private Long totalPrice;
   private String paymentMethod;
-  
 
 }

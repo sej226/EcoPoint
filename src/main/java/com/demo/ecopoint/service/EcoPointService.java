@@ -53,7 +53,7 @@ public class EcoPointService{
     public String useEcoPoint(PaymentCompleted request) {
         EcoPoint ecoPoint = ecoPointRepository.findByMemberId(request.getMemberId());
         long point = ecoPoint.getEcoPoint();
-        ecoPoint.setEcoPoint(point - request.getPrice());
+        ecoPoint.setEcoPoint(point - request.getTotalPrice());
         ecoPoint.setMemberId(request.getMemberId());
 
         ecoPointRepository.save(ecoPoint);
@@ -63,7 +63,7 @@ public class EcoPointService{
     public String refoundPoint(PaymentCanceled request) {
       EcoPoint ecoPoint = ecoPointRepository.findByMemberId(request.getMemberId());
       long point = ecoPoint.getEcoPoint();
-      ecoPoint.setEcoPoint(point + request.getPrice());
+      ecoPoint.setEcoPoint(point + request.getTotalPrice());
       ecoPoint.setMemberId(request.getMemberId());
 
       ecoPointRepository.save(ecoPoint);
