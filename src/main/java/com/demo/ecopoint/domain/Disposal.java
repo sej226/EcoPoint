@@ -27,7 +27,7 @@ public class Disposal {
     private int      quantity;          //배출 수량
     private Long     ecoPoint;          
     private String   disposalDate;  
-    private BranchName    branchName;     //배출 지점
+    private String    branchName;     //배출 지점
     private Long userId;
 
 }
