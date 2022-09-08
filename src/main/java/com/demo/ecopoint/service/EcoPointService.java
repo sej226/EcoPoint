@@ -43,27 +43,32 @@ public class EcoPointService{
       EcoPoint ecoPoint = ecoPointRepository.findByMemberId(memberId);
 
       return ecoPoint;
-  }
+    }
 
-  public String useEcoPoint(PaymentCompleted request) {
+    public List<EcoPoint> getAllEcoPoint() {
+      List<EcoPoint> ecoPointList = ecoPointRepository.findAll();
+      return ecoPointList;
+    }
+    
+    public String useEcoPoint(PaymentCompleted request) {
+        EcoPoint ecoPoint = ecoPointRepository.findByMemberId(request.getMemberId());
+        long point = ecoPoint.getEcoPoint();
+        ecoPoint.setEcoPoint(point - request.getPrice());
+        ecoPoint.setMemberId(request.getMemberId());
+
+        ecoPointRepository.save(ecoPoint);
+        return "Success";
+    }
+
+    public String refoundPoint(PaymentCanceled request) {
       EcoPoint ecoPoint = ecoPointRepository.findByMemberId(request.getMemberId());
       long point = ecoPoint.getEcoPoint();
-      ecoPoint.setEcoPoint(point - request.getPrice());
+      ecoPoint.setEcoPoint(point + request.getPrice());
       ecoPoint.setMemberId(request.getMemberId());
 
       ecoPointRepository.save(ecoPoint);
       return "Success";
-  }
-
-  public String refoundPoint(PaymentCanceled request) {
-    EcoPoint ecoPoint = ecoPointRepository.findByMemberId(request.getMemberId());
-    long point = ecoPoint.getEcoPoint();
-    ecoPoint.setEcoPoint(point + request.getPrice());
-    ecoPoint.setMemberId(request.getMemberId());
-
-    ecoPointRepository.save(ecoPoint);
-    return "Success";
-}
+    }
 
     
 }
