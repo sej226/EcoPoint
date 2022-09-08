@@ -1,5 +1,8 @@
 package com.demo.ecopoint.controller;
 
+import java.util.List;
+import java.util.Random;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.demo.ecopoint.domain.BranchName;
 import com.demo.ecopoint.domain.Disposal;
 import com.demo.ecopoint.domain.DisposalCompleted;
 import com.demo.ecopoint.domain.EcoPointStandard;
@@ -36,7 +40,9 @@ public class DisposalController {
       
         log.info("DisposalId = {}, DisposaProduct = {}, DisposalPlace = {}, ecoPoint = {}"
         , request.getDisposalId(), request.getDisposalProduct(), request.getBranchName(), request.getEcoPoint());
-
+        
+        // System.out.println("?? " + BranchName.values()[new Random().nextInt(BranchName.values().length)] + " ?????");
+        request.setBranchName(BranchName.values()[new Random().nextInt(BranchName.values().length)].toString());
         Disposal disposal = disposalService.disposalItem(request);
         if(disposal != null) {
             DisposalCompleted  disposalCompleted  = new DisposalCompleted();
@@ -53,13 +59,14 @@ public class DisposalController {
             System.out.println(point + " ###################################################");
             disposalCompleted.setEcoPoint(point);
             disposalCompleted.setRecycleItemId(ecoPointStandard.getStandardId());
-            // disposalCompleted.setRecycleItemName);
-            disposalCompleted.publishAfterCommit();
-            
             disposalService.editDisposal(disposalCompleted.getDisposalId(), point);
+            List<Disposal> disposalItems = getDisposalListByUserId(request.getUserId());
+            System.out.println(disposalItems.size() + "@@@@@@@@@@@@@size");
+            // disposalCompleted.publishAfterCommit();
+            
+            
            
             if(ecoPointService.addEcoPoint(disposalCompleted).equals("Success")) {
-                System.out.println("addEcoPoint Success!");
                 return new ResponseEntity(HttpStatus.CREATED);
             }
 
@@ -74,5 +81,9 @@ public class DisposalController {
         return ResponseEntity.ok().body(disposalService.getDisposalList());
     }
 
+    // @GetMapping("/{userId}")
+    public List<Disposal> getDisposalListByUserId(Long userId) {
+        return disposalService.getDisposalListByUserId(userId);
+    }
 
 }
