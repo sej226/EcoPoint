@@ -17,7 +17,7 @@ public class DisposalCompleted extends AbstractEvent {
     private Long    memberId;
     private Long    ecoPoint;
     private String   disposalDate;
-    private BranchName    branchName;
+    private String    branchName;
 
     private List<Disposal> disposalItems;
     private Long recycleItemId;
