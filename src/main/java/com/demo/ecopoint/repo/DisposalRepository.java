@@ -10,6 +10,7 @@ import java.util.*;
 // @RepositoryRestResource
 public interface DisposalRepository extends JpaRepository<Disposal, Long> {
   Disposal findByDisposalId(Long disposalId);
+  List<Disposal> findAllByUserId(Long userId);
   // EcoPoint findById(long id);
-  // List<User> findAll();
+  
 }
