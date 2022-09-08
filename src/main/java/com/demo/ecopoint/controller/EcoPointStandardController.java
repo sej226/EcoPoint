@@ -34,6 +34,7 @@ public class EcoPointStandardController {
         , request.getClassification(), request.getCountweightstandard(), request.getStandardDesc(), request.getEcoPoint());
 
         if(ecoPointStandardService.addPointStandard(request).equals("Success")) {
+            System.out.println("####### addPointStandard Success #######");
             return new ResponseEntity(HttpStatus.CREATED);
         }
         
