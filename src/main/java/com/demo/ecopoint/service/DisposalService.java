@@ -23,7 +23,6 @@ public class DisposalService{
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     
     public Disposal disposalItem(Disposal request){
-
       Date now = new Date();
       String now_dt = format.format(now);
       System.out.println(now_dt); 
@@ -53,6 +52,11 @@ public class DisposalService{
     return PointStandardList;
   } 
 
+  public List<Disposal> getDisposalListByUserId(Long userId) {
+    List<Disposal> disposal = disposalRepository.findAllByUserId(userId);
+
+    return disposal;
+  }
 
   public String editDisposal(Long disposalId, Long ecoPoint) {
     Disposal disposal = disposalRepository.findByDisposalId(disposalId);
