@@ -33,13 +33,11 @@ public class EcoPointController {
     //포인트 부여
     @PostMapping("/reward")
     public ResponseEntity addEcoPoint(@RequestBody DisposalCompleted request) {
-      
         log.info("ecoPoint = {}, memberId = {}, Id = {} "
                  , request.getEcoPoint(), request.getMemberId(), request.getDisposalId());
 
-        // System.out.println(ecoPointService.addEcoPoint(request) + " ??????????????");
         if(ecoPointService.addEcoPoint(request).equals("Success")) {
-            System.out.println("addEcoPoint Success!");
+            System.out.println("####### addEcoPoint Success #######");
             return new ResponseEntity(HttpStatus.CREATED);
         }
         
@@ -52,14 +50,18 @@ public class EcoPointController {
         return ResponseEntity.ok().body(ecoPointService.getEcoPointById(memberId));
     }
 
+    @GetMapping
+    public ResponseEntity getEcoPointAllList() {
+        return ResponseEntity.ok().body(ecoPointService.getAllEcoPoint());
+    }
+
     //포인트 차감
     @PostMapping("/useEcoPoint")
     public ResponseEntity useEcoPoint( @RequestBody PaymentCompleted request ) {
-        // log.info("price = {}", price);
-        log.info("update ", request.getMemberId(), request.getPaymentMethod());
+        log.info("useEcoPoint ", request.getMemberId(), request.getPaymentMethod());
 
         if(ecoPointService.useEcoPoint(request).equals("Success")) {
-          log.info("??????????????????????????");
+            System.out.println("####### useEcoPoint Success #######");
             return new ResponseEntity(HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -71,7 +73,7 @@ public class EcoPointController {
         log.info("update ", request.getMemberId(), request.getPaymentMethod());
 
         if(ecoPointService.refoundPoint(request).equals("Success")) {
-          log.info("??????????????????????????");
+            System.out.println("####### refoundPoint Success #######");
             return new ResponseEntity(HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
