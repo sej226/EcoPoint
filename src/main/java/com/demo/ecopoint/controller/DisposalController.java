@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("disposal")
 @RequiredArgsConstructor
+@Transactional
 public class DisposalController {
 
   private final DisposalService disposalService;
@@ -68,10 +70,9 @@ public class DisposalController {
             disposalService.editDisposal(disposalCompleted.getDisposalId(), point); //배출 내역에 포인트 저장
 
             List<Disposal> disposalItems = getDisposalListByUserId(request.getUserId()); //배출자의 배출 내역 조회
-            
-            // System.out.println(disposalItems.size() + "@@@@@@@@@@@@@size");
-            
+            disposalCompleted.setDisposalItems(disposalItems);
             disposalCompleted.publishAfterCommit();
+            
             
             //포인트 적립
             if(ecoPointService.addEcoPoint(disposalCompleted).equals("Success")) {

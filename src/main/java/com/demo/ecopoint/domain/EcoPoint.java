@@ -46,7 +46,7 @@ public class EcoPoint {
 
     @PostPersist
     public void onPostPersist(){
-    
+        
     }
   
 }

@@ -3,6 +3,8 @@ package com.demo.ecopoint.domain;
 
 import java.util.List;
 
+import javax.persistence.PostPersist;
+
 import com.demo.ecopoint.AbstractEvent;
 
 import lombok.Getter;

@@ -30,4 +30,17 @@ public class Disposal {
     private String    branchName;     //배출 지점
     private Long userId;
 
+    //
+    // @PrePersist : Persist(insert)메서드가 호출되기 전에 실행되는 메서드
+    // @PreUpdate : merge메서드가 호출되기 전에 실행되는 메서드
+    // @PreRemove : Delete메서드가 호출되기 전에 실행되는 메서드
+    // @PostPersist : Persist(insert)메서드가 호출된 이후에 실행되는 메서드
+    // @PostUpdate : merge메서드가 호출된 후에 실행되는 메서드
+    // @PostRemove : Delete메서드가 호출된 후에 실행되는 메서드
+    // @PostLoad : Select조회가 일어난 직후에 실행되는 메서드
+
+    @PostPersist // Persist(insert)메서드가 호출된 이후에 실행되는 메서드
+    public void onPostPersist(){
+        System.out.println("########################PostPersist ###########################");
+    }
 }
