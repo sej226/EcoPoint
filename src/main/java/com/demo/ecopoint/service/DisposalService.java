@@ -2,7 +2,10 @@ package com.demo.ecopoint.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.ecopoint.domain.Disposal;
 import com.demo.ecopoint.repo.DisposalRepository;
@@ -16,9 +19,10 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class DisposalService{
-
-    private final DisposalRepository disposalRepository;
+    @Autowired
+    DisposalRepository disposalRepository;
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     
@@ -60,8 +64,8 @@ public class DisposalService{
 
   public String editDisposal(Long disposalId, Long ecoPoint) {
     Disposal disposal = disposalRepository.findByDisposalId(disposalId);
-    System.out.println(disposalId  + " #################");
-    System.out.println(disposal.getDisposalProduct() + " . " + disposal.getDisposalId());
+    System.out.println(disposalId  + " ################  editDisposal#################");
+    // System.out.println(disposal.getDisposalProduct() + " . " + disposal.getDisposalId());
     // disposal.get().setDisposalId(disposalId);
     if(disposal != null){
       disposal.setEcoPoint(ecoPoint);

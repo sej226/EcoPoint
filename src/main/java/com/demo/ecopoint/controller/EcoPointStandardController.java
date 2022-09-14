@@ -2,6 +2,8 @@ package com.demo.ecopoint.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,9 +26,9 @@ import com.demo.ecopoint.service.EcoPointStandardService;
 @RequestMapping("ecoPointStandard")
 @RequiredArgsConstructor
 public class EcoPointStandardController {
- 
-    private final EcoPointStandardService ecoPointStandardService;
-    
+    @Autowired
+    EcoPointStandardService ecoPointStandardService;
+    //private final 
     @PostMapping("/addStandard")
     public ResponseEntity addPointStandard(@RequestBody EcoPointStandard request) {
       
@@ -72,6 +74,7 @@ public class EcoPointStandardController {
     public ResponseEntity deleteEcoPointStandard(@PathVariable Long standardId) {
         log.info("postId = {}", standardId);
         if(ecoPointStandardService.deleteEcoPointStandard(standardId).equals("Success")) {
+            log.info("########## deleteEcoPointStandard ##########");
             return new ResponseEntity(HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.BAD_REQUEST);

@@ -1,7 +1,10 @@
 package com.demo.ecopoint.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.ecopoint.domain.DisposalCompleted;
 import com.demo.ecopoint.domain.EcoPoint;
@@ -16,9 +19,10 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class EcoPointService{
-
-    private final EcoPointRepository ecoPointRepository;
+    @Autowired 
+    EcoPointRepository ecoPointRepository;
 
     public String addEcoPoint(DisposalCompleted request){
 

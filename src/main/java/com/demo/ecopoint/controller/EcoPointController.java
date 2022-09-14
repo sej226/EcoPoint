@@ -2,6 +2,8 @@ package com.demo.ecopoint.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,8 +29,8 @@ import com.demo.ecopoint.service.EcoPointService;
 @RequestMapping("ecoPoint")
 @RequiredArgsConstructor
 public class EcoPointController {
- 
-    private final EcoPointService ecoPointService;
+    @Autowired
+    EcoPointService ecoPointService;
     
     //포인트 부여
     @PostMapping("/reward")

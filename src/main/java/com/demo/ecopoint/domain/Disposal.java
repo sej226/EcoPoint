@@ -40,7 +40,11 @@ public class Disposal {
     // @PostLoad : Select조회가 일어난 직후에 실행되는 메서드
 
     @PostPersist // Persist(insert)메서드가 호출된 이후에 실행되는 메서드
-    public void onPostPersist(){
+    public void onPostPersist( ){
         System.out.println("########################PostPersist ###########################");
+        // DisposalCompleted  disposalCompleted  = new DisposalCompleted();
+        // disposalCompleted.setDisposalProduct("disposalProduct");  
+        
+        // disposalCompleted.publishAfterCommit();
     }
 }

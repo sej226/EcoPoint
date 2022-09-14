@@ -1,5 +1,6 @@
 package com.demo.ecopoint;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
@@ -20,10 +21,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PolicyHandler {
 
-
-  private final EcoPointStandardService ecoPointStandardService;
-  private final EcoPointService ecoPointService;
-  private final EcoPointRepository ecoPointRepository;
+  @Autowired
+  EcoPointStandardService ecoPointStandardService;
+  @Autowired
+  EcoPointService ecoPointService;
+  @Autowired
+  EcoPointRepository ecoPointRepository;
 
   @StreamListener(KafkaProcessor.INPUT)
     public void whatever(@Payload String eventString){
