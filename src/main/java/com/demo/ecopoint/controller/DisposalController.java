@@ -42,7 +42,7 @@ public class DisposalController {
   EcoPointStandardService ecoPointStandardService;
 
     @PostMapping("/disposalItem")
-    @Transactional
+    // @Transactional
     public ResponseEntity disposalItem(@RequestBody Disposal request) {
       
         log.info("DisposalId = {}, DisposaProduct = {}, DisposalPlace = {}, ecoPoint = {}"
@@ -84,11 +84,12 @@ public class DisposalController {
 
             List<Disposal> disposalItems = getDisposalListByUserId(request.getUserId()); //배출자의 배출 내역 조회
             disposalCompleted.setDisposalItems(disposalItems);
-            disposalCompleted.publish();
+            
             
             //포인트 적립
             if(ecoPointService.addEcoPoint(disposalCompleted).equals("Success")) {
                 log.info("############## " + point + "  포인트 적립 Success ############## ");
+                disposalCompleted.publishAfterCommit();
                 return new ResponseEntity(HttpStatus.CREATED);
             }
 

@@ -27,13 +27,15 @@ public class EcoPointService{
     public String addEcoPoint(DisposalCompleted request){
 
       EcoPoint ecoPoint = ecoPointRepository.findByMemberId(request.getMemberId());
+      Long num = (long)(Math.random() * 99 ) + 1;
+
       if(ecoPoint != null){ //포인트가 기존에 있는 회원
         ecoPoint.setEcoPoint(request.getEcoPoint() +  ecoPoint.getEcoPoint());
         ecoPointRepository.save(ecoPoint);
       }
       else{   //포인트 처음 적립되는 회원
         ecoPointRepository.save(EcoPoint.builder()
-                // .pointId(ecoPoint.getPointId())
+                .pointId(num)
                 .ecoPoint(request.getEcoPoint())
                 .memberId(request.getMemberId())
                 .build());
